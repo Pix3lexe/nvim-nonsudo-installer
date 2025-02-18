@@ -4,18 +4,16 @@ set -e
 
 NVIM_VERSION="stable"
 INSTALL_DIR="$HOME/.local/bin"
-CONFIG_DIR="$HOME/.config/nvim"
+CONFIG_DIR="$HOME/.config"
 TMP_DIR="$(mktemp -d)"
 
 mkdir -p "$INSTALL_DIR"
 
-curl -LO "https://github.com/neovim/neovim/releases/latest/download/nvim-linux64.tar.gz"
+curl -LO "https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.tar.gz"
 
-tar -xzf nvim-linux64.tar.gz -C "$TMP_DIR"
+tar -xzf nvim-linux-x86_64.tar.gz -C "$TMP_DIR"
 
-mv "$TMP_DIR/nvim-linux64/bin/nvim" "$INSTALL_DIR/nvim"
-
-rm -rf "$TMP_DIR" nvim-linux64.tar.gz
+mv "$TMP_DIR/nvim-linux-x86_64/bin/nvim" "$INSTALL_DIR/nvim"
 
 if [[ ":$PATH:" != *":$INSTALL_DIR:"* ]]; then
     echo "export PATH=\"$INSTALL_DIR:\$PATH\"" >> "$HOME/.bashrc"
@@ -32,4 +30,4 @@ rm -rf "$TMP_DIR/dotfiles"
 echo "Neovim config successfully installed. Please run nvim to install all plugins"
 
 # cleanup
-rm -rf "$TMP_DIR" nvim-linux64.tar.gz
+rm -rf "$TMP_DIR" nvim-linux-x86_64.tar.gz

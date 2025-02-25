@@ -6,16 +6,18 @@ NVIM_VERSION="stable"
 INSTALL_DIR="$HOME/.local/bin"
 DOWNLOAD_DIR="$HOME/lib"
 CONFIG_DIR="$HOME/.config"
+FONT_DIR="$HOME/.local/share/fonts"
 TMP_DIR="$(mktemp -d)"
 
 mkdir -p "$INSTALL_DIR"
 mkdir -p "$DOWNLOAD_DIR"
+mkdir -p "$FONT_DIR"
 
+# Download and install Neovim
 curl -LO "https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.tar.gz"
 
 tar -xzf nvim-linux-x86_64.tar.gz -C "$DOWNLOAD_DIR"
 ln -s "$DOWNLOAD_DIR/nvim-linux-x86_64/bin/nvim" "$INSTALL_DIR"
-
 
 if [[ ":$PATH:" != *":$INSTALL_DIR:"* ]]; then
     echo "export PATH=\"$INSTALL_DIR:\$PATH\"" >> "$HOME/.bashrc"
@@ -24,7 +26,7 @@ else
     echo "Neovim installed successfully in $INSTALL_DIR."
 fi
 
-# get my config
+# Get user config
 mkdir -p "$CONFIG_DIR"
 if [ -d "$CONFIG_DIR/nvim" ]; then
     rm -rf "$CONFIG_DIR/nvim"
@@ -34,7 +36,6 @@ git clone https://github.com/Pix3lexe/dotfiles.git "$TMP_DIR/dotfiles"
 mv "$TMP_DIR/dotfiles/nvim/.config/nvim" "$CONFIG_DIR"
 rm -rf "$TMP_DIR/dotfiles"
 echo "Neovim config successfully installed. Please run nvim to install all plugins"
-
 
 # Download and install JetBrains Mono Nerd Font
 FONT_ZIP="JetBrainsMono.zip"
